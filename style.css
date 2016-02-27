@@ -1,0 +1,241 @@
+* {
+	margin: 0 auto;
+	font-family:'Open Sans', Arial, sans-serif;
+}
+
+#usercolorbar {
+	position:absolute;
+	z-index:100;
+	height:10px;
+	width:100%;
+	float:left;
+	background:#23cd77;
+}  	
+
+.sidebar {
+	height:100%;
+	background:#f9f9f9;
+	box-shadow:rgba(0,0,0,0.1);
+	top:0px;
+	box-sizing: border-box;
+	padding-top:10px;
+	margin:0px;
+	position:absolute;
+}
+
+.sidebar .head {
+	width:100%;
+	float:left;
+	border-bottom:1px solid #eee;
+	display:block;
+	padding:10px 15px;
+	box-sizing: border-box;
+	text-transform:uppercase;
+	color:#999;
+	font-size:12px;
+}
+
+#userlist {
+	left:0px;
+	float:left;
+	width:260px;
+}
+
+.userentry {
+	padding:20px 15px;
+	background:#23cd77;
+	box-sizing: border-box;
+	float:left;
+	width:100%;
+}
+
+.userentry .name {
+	color:#fff;
+	font-size:20px;
+	text-transform:uppercase;
+}
+
+#usercircles {
+	width:100%;
+	height:100%;
+	float:left;
+	position:absolute;
+}
+
+.usercircle {
+	border-radius:50%;
+	transform: translate(-50%, -50%);
+	width:20px;
+	height:20px;
+	background:#23cd77;
+	display:block;
+	position:absolute;
+	top:50%;
+	left:50%;
+}
+
+#keylist {
+	float:right;
+	width:260px;
+	right:0;
+}
+
+.sound {
+	width:100%;
+	box-sizing: border-box;
+	padding:15px 15px;
+	float:left;
+}
+
+.sound .key {
+	width:40px;
+	float:left;
+	display:block;
+	font-size:32px;
+	color:#999;
+	font-weight:700;
+	line-height:32px;
+	min-height:10px;
+}
+
+.sound .code {
+	width:160px;
+	float:left;
+	display:block;
+	padding-top:0px;
+}
+
+.sound .code span {
+	font-family:Courier, serif;
+	color:#999;
+	font-size:14px;
+}
+
+.usercircle-ring {
+    border: 3px solid #23cd77;
+    border-radius:50%;
+    height: 40px;
+    width: 40px;
+    top:-10px;
+    left:-10px;
+    position: absolute;
+    -webkit-animation: pulsate 1s ease-out;
+    -webkit-animation-iteration-count: infinite; 
+    opacity: 0;
+    box-sizing: border-box;
+    display:none;
+}
+
+.usercircle-ring.active {
+	display:block;
+}
+
+@-webkit-keyframes pulsate {
+    0% {transform: scale(0.1, 0.1); opacity: 0.0;}
+    50% {opacity: 1.0;}
+    100% {transform: scale(1.2, 1.2); opacity: 0.0;}
+}
+
+
+.conductorlink {
+	width:50%;
+	float:left;
+	display: block;
+	background:#23cd77;
+	height:100%;
+	position: absolute;
+	transition: 0.5s width;
+	cursor:pointer;
+	overflow:hidden;
+}
+
+.musicianlink {
+	width:50%;
+	right:0px;
+	float:left;
+	display: block;
+	background:#6423cd;
+	height:100%;
+	position: absolute;
+	transition: 0.5s width;
+	cursor:pointer;
+	overflow:hidden;
+}
+
+.conductorlink .text-headline,
+.musicianlink .text-headline {
+	color:#fff;
+	text-transform: uppercase;
+	width:100%;
+	float:left;
+	text-align: center;
+	font-size:48px;
+	font-weight:700;
+}
+
+.conductorlink .text-subline,
+.musicianlink .text-subline {
+	color:rgba(255,255,255,0.7);
+	text-transform: uppercase;
+	width:100%;
+	float:left;
+	text-align: center;
+	font-size:24px;
+}
+
+
+.text-choosename {
+	color:#fff;
+	width:100%;
+	float:left;
+	text-align: left;
+	font-size:24px;
+	margin-bottom:20px;
+}
+
+.conductorlink .textblock,
+.musicianlink .textblock {
+	width:100%;
+	height:150px;
+	float:left;
+	margin-top:-75px;
+	top:50%;
+	position: absolute;
+}
+
+.signupform {
+	top:50%;
+	padding:50px;
+	box-sizing: border-box;
+	width:100%;
+	margin-top:-150px;
+	float:left;
+	position: absolute;
+	display: none;
+}
+
+.signupform input[type="text"] {
+	width:100%;
+	font-size:32px;
+	color:#fff;
+	border:0px;
+	border-bottom:3px solid #fff;
+	background:rgba(255,255,255,0.1);
+	padding:10px;
+	outline:none;
+}
+
+.signupform input[type="radio"] {
+	display:none;
+}
+
+.signupform input[type="submit"] {
+	background: transparent;
+	border:none;
+	color:#fff;
+	font-size:20px;
+	overflow:hidden;
+	margin-top:30px;
+	float:left;
+	cursor: pointer;
+}

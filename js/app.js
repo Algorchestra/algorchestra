@@ -13,3 +13,7 @@ var channel = pusher.subscribe('global');
 channel.bind('music_keystroke', function(data) {
   alert(data.message);
 });
+
+channel.trigger('client-my_event', {
+  "message": "hello world"
+}); 

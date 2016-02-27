@@ -18,14 +18,13 @@ var pusher = new Pusher('63d59e4d863d6c327df0', {
 
 var channel = pusher.subscribe('private-global');
 channel.bind('music_keystroke', function(data) {
-  alert(data.message);
+	t.beat(4);
 });
 
 $(document).ready(function(){
 	t = new track();
 
 	$(document).keypress(function(event) {
-		t.beat(4);
 		channel.trigger('client-music_keystroke', {
 		  "message": "hello world"
 		});

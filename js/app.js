@@ -9,9 +9,9 @@ var pusher = new Pusher('63d59e4d863d6c327df0', {
   encrypted: true
   authTransport: 'client',
     clientAuth: {
-      key: APP_KEY
-      secret: APP_SECRET,
-      user_id: USER_ID,
+      key: '63d59e4d863d6c327df0'
+      secret: '3f3f9b3c99eaa688e16b',
+      user_id: 1,
       user_info: {}
     }
 });
@@ -26,6 +26,6 @@ $(document).ready(function(){
 		console.log(channel);
 		channel.trigger('client-music_keystroke', {
 		  "message": "hello world"
-		}); 
+		});
 	});
 });

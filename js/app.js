@@ -14,6 +14,10 @@ channel.bind('music_keystroke', function(data) {
   alert(data.message);
 });
 
-channel.trigger('client-my_event', {
-  "message": "hello world"
-}); 
+$(document).ready(function(){
+	$(document).keypress(function(event) {
+		channel.trigger('client-music_keystroke', {
+		  "message": "hello world"
+		}); 
+	});
+});

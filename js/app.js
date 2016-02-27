@@ -6,7 +6,7 @@ Pusher.log = function(message) {
 };
 
 var pusher = new Pusher('63d59e4d863d6c327df0', {
-  encrypted: true
+  encrypted: true,
   authTransport: 'client',
     clientAuth: {
       key: '63d59e4d863d6c327df0'

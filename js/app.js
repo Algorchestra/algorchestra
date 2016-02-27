@@ -27,7 +27,7 @@ channel.bind('music_keystroke', function(data) {
 });
 
 $(document).keypress(function(event) {
-	channel.trigger('client-music_keystroke', {
+	channel.trigger('music_keystroke', {
 	  "message": "hello world"
 	});
 });

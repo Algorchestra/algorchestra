@@ -21,13 +21,12 @@ var pusher = new Pusher('63d59e4d863d6c327df0', {
 
 var channel = pusher.subscribe('private-global');
 channel.bind('client-music_keystroke', function(data) {
-	console.log(data);
 	t = new track();
-	t.beat(4);
+	t.eval(data.sound);
 });
 
 $(document).keypress(function(event) {
 	channel.trigger('client-music_keystroke', {
-	  "message": "hello world"
+	  "sound": "beat(4)"
 	});
 });

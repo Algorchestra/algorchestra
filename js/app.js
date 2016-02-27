@@ -7,6 +7,13 @@ Pusher.log = function(message) {
 
 var pusher = new Pusher('63d59e4d863d6c327df0', {
   encrypted: true
+  authTransport: 'client',
+    clientAuth: {
+      key: APP_KEY
+      secret: APP_SECRET,
+      user_id: USER_ID,
+      user_info: {}
+    }
 });
 
 var channel = pusher.subscribe('global');
@@ -17,7 +24,7 @@ channel.bind('music_keystroke', function(data) {
 $(document).ready(function(){
 	$(document).keypress(function(event) {
 		console.log(channel);
-		channel.trigger('music_keystroke', {
+		channel.trigger('client-music_keystroke', {
 		  "message": "hello world"
 		}); 
 	});

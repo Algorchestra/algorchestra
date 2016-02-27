@@ -9,7 +9,7 @@ var pusher = new Pusher('63d59e4d863d6c327df0', {
   encrypted: true,
   authTransport: 'client',
     clientAuth: {
-      key: '63d59e4d863d6c327df0'
+      key: '63d59e4d863d6c327df0',
       secret: '3f3f9b3c99eaa688e16b',
       user_id: 1,
       user_info: {}

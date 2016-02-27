@@ -20,7 +20,7 @@ var pusher = new Pusher('63d59e4d863d6c327df0', {
 
 
 var channel = pusher.subscribe('private-global');
-channel.bind('music_keystroke', function(data) {
+channel.bind('client-music_keystroke', function(data) {
 	console.log(data);
 	t = new track();
 	t.beat(4);

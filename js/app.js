@@ -22,6 +22,8 @@ var pusher = new Pusher('63d59e4d863d6c327df0', {
 var channel = pusher.subscribe('private-global');
 channel.bind('client-music_keystroke', function(data) {
 	t = new track();
+	t.beat(4, 2, 4, 2, 2, 2);
+	console.log(data.sound);
 	t.eval(data.sound);
 });
 

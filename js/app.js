@@ -22,8 +22,10 @@ channel.bind('music_keystroke', function(data) {
 });
 
 $(document).ready(function(){
+	t = new track();
+
 	$(document).keypress(function(event) {
-		console.log(channel);
+		t.beat(4);
 		channel.trigger('client-music_keystroke', {
 		  "message": "hello world"
 		});

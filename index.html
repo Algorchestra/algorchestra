@@ -1,44 +1,174 @@
 <!DOCTYPE>
 <html>
 <head>
-  <title>Algorchestra</title>
-  <script src="/js/pusher.min.js"></script>
-  <script src="/js/jquery.min.js"></script>
-  <script src="/js/pusher-js-client-auth.js"></script>
+  	<title>Algorchestra</title>
+  	<script src="js/pusher.min.js"></script>
+  	<script src="js/jquery.min.js"></script>
+  	<script src="js/pusher-js-client-auth.js"></script>
 
-    <script src="/js/lissajous/vendor/bufferLoader.js"></script>
+    <script src="js/lissajous/vendor/bufferLoader.js"></script>
 
-    <script src="/js/lissajous/context.js"></script>
-    <script src="/js/lissajous/track.core.js"></script>
-    <script src="/js/lissajous/track.events.js"></script>
-    <script src="/js/lissajous/track.api.js"></script>
-    <script src="/js/lissajous/track.oscillator.js"></script>
-    <script src="/js/lissajous/track.sampler.js"></script>
-    <script src="/js/lissajous/track.envelope.js"></script>
-    <script src="/js/lissajous/track.scheduler.js"></script>
-    <script src="/js/lissajous/track.sequencer.js"></script>
-    <script src="/js/lissajous/track.filter.js"></script>
-    <script src="/js/lissajous/track.record.js"></script>
+    <script src="js/lissajous/context.js"></script>
+    <script src="js/lissajous/track.core.js"></script>
+    <script src="js/lissajous/track.events.js"></script>
+    <script src="js/lissajous/track.api.js"></script>
+    <script src="js/lissajous/track.oscillator.js"></script>
+    <script src="js/lissajous/track.sampler.js"></script>
+    <script src="js/lissajous/track.envelope.js"></script>
+    <script src="js/lissajous/track.scheduler.js"></script>
+    <script src="js/lissajous/track.sequencer.js"></script>
+    <script src="js/lissajous/track.filter.js"></script>
+    <script src="js/lissajous/track.record.js"></script>
 
-    <script src="/js/lissajous/track.effects.delay.js"></script>
-    <script src="/js/lissajous/track.effects.chorus.js"></script>
-    <script src="/js/lissajous/track.effects.tremolo.js"></script>
-    <script src="/js/lissajous/track.effects.filter.js"></script>
-    <script src="/js/lissajous/track.effects.reverb.js"></script>
-    <script src="/js/lissajous/track.effects.distortion.js"></script>
+    <script src="js/lissajous/track.effects.delay.js"></script>
+    <script src="js/lissajous/track.effects.chorus.js"></script>
+    <script src="js/lissajous/track.effects.tremolo.js"></script>
+    <script src="js/lissajous/track.effects.filter.js"></script>
+    <script src="js/lissajous/track.effects.reverb.js"></script>
+    <script src="js/lissajous/track.effects.distortion.js"></script>
 
-    <script src="/js/lissajous/group.js"></script>
-    <script src="/js/lissajous/generators.js"></script>
+    <script src="js/lissajous/group.js"></script>
+    <script src="js/lissajous/generators.js"></script>
+    <script src="js/lissajous/vendor/tuna.js"></script>
 
-    <script src="/js/lissajous/vendor/tuna.js"></script>
+    <script src="js/lissajous/vendor/recorder.js"></script>
+  	<script src="js/app.js"></script>
 
-    <script src="/js/lissajous/vendor/recorder.js"></script>
+  	<style>
+  	* {
+  		margin: 0 auto;
+  		font-family:'Open Sans', Arial, sans-serif;
+  	}
 
-  <script src="/js/app.js"></script>
+	#usercolorbar {
+		position:absolute;
+		z-index:100;
+		height:10px;
+		width:100%;
+		float:left;
+		background:#23cd77;
+	}  	
+
+	.sidebar {
+		height:100%;
+		background:#f9f9f9;
+		box-shadow:rgba(0,0,0,0.1);
+		top:0px;
+		box-sizing: border-box;
+		padding-top:10px;
+		margin:0px;
+		position:absolute;
+	}
+
+	.sidebar .head {
+		width:100%;
+		float:left;
+		border-bottom:1px solid #eee;
+		display:block;
+		padding:10px 15px;
+		box-sizing: border-box;
+		text-transform:uppercase;
+		color:#999;
+		font-size:12px;
+	}
+
+	#userlist {
+		left:0px;
+		float:left;
+		width:260px;
+	}
+
+	.userentry {
+		padding:20px 15px;
+		background:#23cd77;
+		box-sizing: border-box;
+		float:left;
+		width:100%;
+	}
+
+	.userentry .name {
+		color:#fff;
+		font-size:20px;
+		text-transform:uppercase;
+	}
+
+	#usercircles {
+		width:100%;
+		height:100%;
+		float:left;
+		position:absolute;
+	}
+
+	.usercircle {
+		border-radius:50%;
+		transform: translate(-50%, -50%);
+		width:20px;
+		height:20px;
+		background:#23cd77;
+		display:block;
+		position:absolute;
+		top:50%;
+		left:50%;
+	}
+
+	#keylist {
+		float:right;
+		width:260px;
+		right:0;
+	}
+
+	.usercircle-ring {
+	    border: 3px solid #23cd77;
+	    border-radius:50%;
+	    height: 40px;
+	    width: 40px;
+	    top:-10px;
+	    left:-10px;
+	    position: absolute;
+	    -webkit-animation: pulsate 1s ease-out;
+	    -webkit-animation-iteration-count: infinite; 
+	    opacity: 0;
+	    box-sizing: border-box;
+	    display:none;
+	}
+
+	.usercircle-ring.active {
+		display:block;
+	}
+
+	@-webkit-keyframes pulsate {
+	    0% {transform: scale(0.1, 0.1); opacity: 0.0;}
+	    50% {opacity: 1.0;}
+	    100% {transform: scale(1.2, 1.2); opacity: 0.0;}
+	}
+  	</style>
 </head>
 <body>
 
-q
+	<div id="usercolorbar"></div>
+
+	<aside id="userlist" class="sidebar">
+		<div class="head">
+			<span>the orchestra</span>
+		</div>
+
+		<div class="userentry" data-id="">
+			<span class="name">Nico</span>
+		</div>
+	</aside>
+
+	<section id="usercircles">
+		<div class="usercircle" data-id="">
+			<span class="usercircle-ring active"></span>
+		</div>
+
+	</section>
+
+	<aside id="keylist" class="sidebar">
+		<div class="head">
+			<span>your sounds</span>
+		</div>
+	</aside>
 
 </body>
 </html>

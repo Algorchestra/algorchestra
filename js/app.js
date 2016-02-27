@@ -5,6 +5,7 @@ Pusher.log = function(message) {
   }
 };
 
+
 var pusher = new Pusher('63d59e4d863d6c327df0', {
   encrypted: true,
   authTransport: 'client',
@@ -16,16 +17,18 @@ var pusher = new Pusher('63d59e4d863d6c327df0', {
     }
 });
 
-var channel = pusher.subscribe('global');
-channel.bind('music_keystroke', function(data) {
-  alert(data.message);
+
+
+var channel = pusher.subscribe('private-global');
+channel.bind('client-music_keystroke', function(data) {
+	t = new track();
+	t.beat(4, 2, 4, 2, 2, 2);
+	console.log(data.sound);
+	t.eval(data.sound);
 });
 
-$(document).ready(function(){
-	$(document).keypress(function(event) {
-		console.log(channel);
-		channel.trigger('client-music_keystroke', {
-		  "message": "hello world"
-		});
+$(document).keypress(function(event) {
+	channel.trigger('client-music_keystroke', {
+	  "sound": "beat(4)"
 	});
 });

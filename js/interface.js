@@ -120,6 +120,19 @@ var UserCircles = React.createClass({
 });
 
 var CurrentUserSounds = React.createClass({
+	_addSound: function(){
+		/*
+		var newSound = {'key': prompt('Enter letter'), 'code': prompt('Enter code')};
+		var tmpUsers = window.interfaceMain.props.users;
+		console.log(tmpUsers);
+		$.each(tmpUsers, function(key, singleUser){
+			if(singleUser.info.id = this.props.user.id) {
+				tmpUsers[key].sounds.push(newSound);
+			}
+		});
+		window.interfaceMain.setState({'users': tmpUsers});
+		*/
+	},
   	render: function() {
 	    var userSounds = this.props.user.sounds.map(function(sound) {
 	      return (
@@ -139,6 +152,8 @@ var CurrentUserSounds = React.createClass({
 			</div>
 
 			{userSounds}
+
+			<a className="button" onClick={this._addSound}>Add new</a>
 		</aside>
     );
   }
@@ -159,10 +174,9 @@ var InterfaceMain = React.createClass({
 	  window.interfaceMain = this;
 	},
   	render: function() {
-  		console.log(currentUser);
     return (
       <div id="mainview">
-		<div id="usercolorbar" onClick={this._updateUserList}></div>
+		<div id="usercolorbar" onClick={this._updateUserList} style={{backgroundColor: '#' + currentUser.color}}></div>
 
 		<UserList users={this.state.users} />
 		<UserCircles users={this.state.users} />

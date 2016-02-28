@@ -85,6 +85,7 @@
 	box-sizing: border-box;
 	padding:15px 15px;
 	float:left;
+	border-bottom:1px solid #eee;
 }
 
 .sound .key {
@@ -238,4 +239,25 @@
 	margin-top:30px;
 	float:left;
 	cursor: pointer;
+}
+
+.button {
+	background:#23cd77;
+	width:90%;
+	box-sizing: border-box;
+	padding:15px;
+	text-align:center;
+	color:#fff;
+	font-family: 'Open Sans', arial;
+	margin: 5%;
+	text-transform: uppercase;
+	font-weight:600;
+	float:left;
+	font-size: 14px;
+	cursor:pointer;
+	transition: 0.5s background;
+}
+
+.button:hover {
+	background:#1eb167;
 }

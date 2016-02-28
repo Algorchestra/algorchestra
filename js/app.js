@@ -36,20 +36,18 @@ var pusherConnect = function(user) {
     channel.bind('pusher:subscription_succeeded', function(member) {
         window.interfaceMain._updateUserList();
     });
-
+    /*
     $(document).keypress(function(e) {
         currentUserKeys = {};
         $.each(channel.members.me.info.sounds, function(key, sound){ currentUserKeys[sound.key] = sound.code; });
 
         var c = '';
         if((c = String.fromCharCode(e.which)) in currentUserKeys) {
-            console.log('send: ' + currentUserKeys[c]);
             channel.trigger('client-music_keystroke', {
                 "user_id" : channel.members.me.info.id,
                 "sound": currentUserKeys[c]
             });
             t.eval(currentUserKeys[c]);
-        } 
-    });
+        }
+    });*/
 }
-

@@ -141,8 +141,44 @@ var UserCircles = React.createClass({
   	}
 });
 
+
+var CurrentUserSoundItem = React.createClass({
+	componentDidMount: function() {
+		var _this = this;
+
+		$(document).keypress(function(e) {
+
+			if (String.fromCharCode(e.which) == _this.props.data.key) {
+				channel.trigger('client-music_keystroke', {
+						"user_id" : channel.members.me.info.id,
+						"sound": _this.state.value
+				});
+				t.eval(_this.state.value);
+			}
+		});
+	},
+	getInitialState: function() {
+		return {value: this.props.data.code};
+	},
+	handleChange: function(event) {
+		this.setState({value: event.target.value});
+	},
+	render: function() {
+			return (
+					<div className="sound" key={this.props.data.key}>
+						<span className="key">{this.props.data.key}</span>
+						<blockquote className="code">
+							<textarea name="body"
+								onChange={this.handleChange}
+								value={this.state.value}/>
+						</blockquote>
+					</div>
+		);
+	}
+})
+
 var CurrentUserSounds = React.createClass({
-	_addSound: function(){
+	_addSound: function(event){
 		/*
 		var newSound = {'key': prompt('Enter letter'), 'code': prompt('Enter code')};
 		var tmpUsers = window.interfaceMain.props.users;
@@ -155,26 +191,17 @@ var CurrentUserSounds = React.createClass({
 		window.interfaceMain.setState({'users': tmpUsers});
 		*/
 	},
-  	render: function() {
-	    var userSounds = this.props.user.sounds.map(function(sound) {
-	      return (
-			<div className="sound" key={sound.key}>
-				<span className="key">{sound.key}</span>
-				<blockquote className="code">
-					<span>{sound.code}</span>
-				</blockquote>
-			</div>
-	      );
-	    });
 
+	render: function() {
     	return (
 		<aside id="keylist" className="sidebar">
 			<div className="head">
 				<span>Your Sounds</span>
 			</div>
 
-			{userSounds}
-
+			{this.props.user.sounds.map(function(sound) {
+				return <CurrentUserSoundItem key={sound.key} data={sound}/>;
+			})}
 			<a className="button" onClick={this._addSound}>Add new</a>
 		</aside>
     );

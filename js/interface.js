@@ -81,10 +81,14 @@ function getRandomInt (min, max) {
 
 var UserList = React.createClass({
 	_onClick: function(e) {
+		if(currentUser.type != 'conductor') return;
 		var _this = this;
 		$.each(this.props.users, function(key, singleUser){
 			if(singleUser.id == $(e.target).closest('.userentry').data('user_id')) {
 				_this.props.users[key].disabled = !_this.props.users[key].disabled;
+				channel.trigger('client-toggle_activation', {
+		            "user_id" : singleUser.id
+		        });
 			}
 		});
 		this.props.onUpdate(this.props.users);
@@ -114,10 +118,14 @@ var UserList = React.createClass({
 
 var UserCircles = React.createClass({
 	_onClick: function(e) {
+		if(currentUser.type != 'conductor') return;
 		var _this = this;
 		$.each(this.props.users, function(key, singleUser){
 			if(singleUser.id == $(e.target).closest('.usercircle').data('user_id')) {
 				_this.props.users[key].disabled = !_this.props.users[key].disabled;
+				channel.trigger('client-toggle_activation', {
+		            "user_id" : singleUser.id
+		        });
 			}
 		});
 		this.props.onUpdate(this.props.users);
@@ -148,13 +156,18 @@ var CurrentUserSoundItem = React.createClass({
 
 		$(document).keypress(function(e) {
 
-			if (String.fromCharCode(e.which) == _this.props.data.key) {
-				channel.trigger('client-music_keystroke', {
-						"user_id" : channel.members.me.info.id,
-						"sound": _this.state.value
-				});
-				t.eval(_this.state.value);
-			}
+			$.each(window.interfaceMain.state.users, function(index, user){
+            	if(user.id == currentUser.id && !user.disabled && currentUser.type != 'conductor') {
+					if (String.fromCharCode(e.which) == _this.props.data.key) {
+						channel.trigger('client-music_keystroke', {
+								"user_id" : channel.members.me.info.id,
+								"sound": _this.state.value
+						});
+						console.log('sent: ' + _this.state.value);
+						t.eval(_this.state.value);
+					}
+				}
+			});
 		});
 	},
 	getInitialState: function() {
@@ -193,6 +206,8 @@ var CurrentUserSounds = React.createClass({
 	},
 
 	render: function() {
+		if(currentUser.type == 'conductor') return(<span></span>);
+
     	return (
 		<aside id="keylist" className="sidebar">
 			<div className="head">

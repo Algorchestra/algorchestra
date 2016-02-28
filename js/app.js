@@ -25,6 +25,17 @@ var pusherConnect = function(user) {
         t.eval(data.sound);
     });
 
+    channel.bind('client-toggle_activation', function(data) {
+        $.each(window.interfaceMain.state.users, function(key, singleUser){
+            if(singleUser.id == data.user_id) {
+                window.interfaceMain.state.users[key].disabled = !window.interfaceMain.state.users[key].disabled;
+            }
+        });
+
+        window.interfaceMain.setState({'users':window.interfaceMain.state.users});
+    });
+
+
     channel.bind('pusher:member_added', function(member) {
         window.interfaceMain._updateUserList();
     });

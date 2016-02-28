@@ -80,14 +80,25 @@ function getRandomInt (min, max) {
 }
 
 var UserList = React.createClass({
+	_onClick: function(e) {
+		var _this = this;
+		$.each(this.props.users, function(key, singleUser){
+			if(singleUser.id == $(e.target).closest('.userentry').data('user_id')) {
+				_this.props.users[key].disabled = !_this.props.users[key].disabled;
+			}
+		});
+		this.props.onUpdate(this.props.users);
+	},
   	render: function() {
       var userlistEntries = this.props.users.map(function(user) {
+      	var userClassNames = 'userentry'
+      	if (user.disabled) userClassNames += ' disabled';
       return (
-       	<div className="userentry" key={user.id} style={{backgroundColor: '#' + user.color}}>
+       	<div className={userClassNames} key={user.id} style={{backgroundColor: '#' + user.color}} data-user_id={user.id} onClick={this._onClick}>
 			<span className="name">{user.name}</span>
 		</div>
       );
-    });
+    }.bind(this));
 
     return (
 		<aside id="userlist" className="sidebar">
@@ -102,14 +113,25 @@ var UserList = React.createClass({
 });
 
 var UserCircles = React.createClass({
+	_onClick: function(e) {
+		var _this = this;
+		$.each(this.props.users, function(key, singleUser){
+			if(singleUser.id == $(e.target).closest('.usercircle').data('user_id')) {
+				_this.props.users[key].disabled = !_this.props.users[key].disabled;
+			}
+		});
+		this.props.onUpdate(this.props.users);
+	},
   	render: function() {
   		var userCircles = this.props.users.map(function(user) {
+  		var userClassNames = 'usercircle'
+      	if (user.disabled) userClassNames += ' disabled';
 	      return (
-	      	<div className="usercircle" key={user.id} style={{backgroundColor: '#' + user.color, top: getRandomInt(10,90) + '%', left: getRandomInt(30,70) + '%'}}>
+	      	<div className={userClassNames} key={user.id} style={{backgroundColor: '#' + user.color, top: getRandomInt(10,90) + '%', left: getRandomInt(30,70) + '%'}} data-user_id={user.id} onClick={this._onClick}>
 				<span className="usercircle-ring active" style={{borderColor: '#' + user.color}}></span>
 			</div>
 	      );
-    	});
+    	}.bind(this));
 
     	return (
 		<section id="usercircles">
@@ -174,17 +196,23 @@ var InterfaceMain = React.createClass({
 	  window.interfaceMain = this;
 	},
   	render: function() {
-    return (
-      <div id="mainview">
-		<div id="usercolorbar" onClick={this._updateUserList} style={{backgroundColor: '#' + currentUser.color}}></div>
+	    return (
+	      <div id="mainview">
+			<div id="usercolorbar" style={{backgroundColor: '#' + currentUser.color}}></div>
 
-		<UserList users={this.state.users} />
-		<UserCircles users={this.state.users} />
-		<CurrentUserSounds user={currentUser} />
-	</div>
-    );
-  }
+			<UserList users={this.state.users} onUpdate={this.onUpdate} />
+			<UserCircles users={this.state.users} onUpdate={this.onUpdate} />
+			<CurrentUserSounds user={currentUser} />
+		</div>
+	    );
+	  },
+	  onUpdate: function(users){
+	      this.setState({
+	          users: users
+	      });
+	  }
 });
+
 
 ReactDOM.render(
 	<InterfaceIntro />,

@@ -99,7 +99,7 @@ ClientAuthorizer.setUpPusher = function( Pusher ) {
  */
 ClientAuthorizer.clientAuth = function( socketId, callback ){
   var authorizer = ClientAuthorizer.createAuthorizer( this.options.clientAuth );
-  var channelData = null;
+  var channelData = {};
   if( this.options.clientAuth.user_id ) {
     channelData = {
       user_id: this.options.clientAuth.user_id,

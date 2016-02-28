@@ -43,13 +43,28 @@ var InterfaceIntro = React.createClass({
 });
 
 
-
 var UserSignup = React.createClass({
+	_onSubmit:function(e){
+		e.preventDefault();
+		var formData = $(e.target).serializeObject();
+
+		currentUser = createUser();
+
+		currentUser.name = formData.name;
+		currentUser.type = formData.type;
+
+		pusherConnect(currentUser);
+
+		ReactDOM.render(
+			<InterfaceMain />,
+			document.getElementById('wrapper')
+		)
+	},
   	render: function() {
     return (
     	<div className="signupform">
     		<span className="text-choosename">Choose a name</span>
-			<form method="POST" action="/login">
+			<form method="POST" action="" onSubmit={this._onSubmit}>
 				<input type="text" name="name" />
 				<input type="radio" name="type" value="conductor" id="conductorlink" />
 				<input type="radio" name="type" value="musician" id="musicianlink" />
@@ -60,8 +75,9 @@ var UserSignup = React.createClass({
   }
 });
 
-
-
+function getRandomInt (min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
 var UserList = React.createClass({
   	render: function() {
@@ -87,14 +103,20 @@ var UserList = React.createClass({
 
 var UserCircles = React.createClass({
   	render: function() {
+  		var userCircles = this.props.users.map(function(user) {
+	      return (
+	      	<div className="usercircle" key={user.id} style={{backgroundColor: '#' + user.color, top: getRandomInt(10,90) + '%', left: getRandomInt(30,70) + '%'}}>
+				<span className="usercircle-ring active" style={{borderColor: '#' + user.color}}></span>
+			</div>
+	      );
+    	});
+
     	return (
 		<section id="usercircles">
-			<div className="usercircle" data-id="">
-				<span className="usercircle-ring active"></span>
-			</div>
+			{userCircles}
 		</section>
-    );
-  }
+    	);
+  	}
 });
 
 var CurrentUserSounds = React.createClass({
@@ -124,42 +146,31 @@ var CurrentUserSounds = React.createClass({
 
 var InterfaceMain = React.createClass({
 	getInitialState: function() {
-        return { users: this.props.initialUsers };
+        return { users: [] };
     },
+    _updateUserList: function() {
+    	var tmpUsers = [];
+    	channel.members.each(function(user){
+    		tmpUsers.push(user.info);
+    	});
+    	this.setState({users: tmpUsers});
+	},
+	componentDidMount: function() {
+	  window.interfaceMain = this;
+	},
   	render: function() {
+  		console.log(currentUser);
     return (
-      <div>
-		<div id="usercolorbar"></div>
+      <div id="mainview">
+		<div id="usercolorbar" onClick={this._updateUserList}></div>
 
 		<UserList users={this.state.users} />
-		<UserCircles />
-		<CurrentUserSounds user={this.state.users[0]} />
+		<UserCircles users={this.state.users} />
+		<CurrentUserSounds user={currentUser} />
 	</div>
     );
   }
 });
-
-users = [{
-	"id" : 0,
-	"name" : "Niklas",
-	"color" : "83cd23",
-	"sounds" : [{
-		"key": "k",
-		"code": "beat(4)"
-	},{
-		"key": "n",
-		"code": "beat(4)"
-	}]
-}, {
-	"id" : 1,
-	"name" : "Nico",
-	"color" : "23cd77",
-	"sounds" : [{
-		"key": "k",
-		"code": "beat(4)"
-	}]
-}];
-
 
 ReactDOM.render(
 	<InterfaceIntro />,
